@@ -10,10 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* New professional magenta & fuchsia palette */
+            /* Updated professional magenta & fuchsia palette with a dark header color */
             --primary-color: #C026D3;
             --secondary-color: #DB2777;
             --accent-color: #F9A826;
+            --header-bg: #2D2E33;
             --text-dark: #1f2937;
             --text-light: #6b7280;
             --bg-light: #FBF8F6; /* Warm off-white */
@@ -40,8 +41,9 @@
             padding: 0 2rem;
         }
 
+        /* Updated header to use a solid, dark background color */
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--header-bg);
             color: white;
             padding: 4rem 0;
             text-align: center;
@@ -114,9 +116,10 @@
             line-height: 1.8;
         }
 
+        /* Updated About Me grid for a single image */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 0.7fr;
             gap: 3rem;
             align-items: center;
         }
@@ -134,12 +137,11 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* New styles for the two-column contact form */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: flex-start;
+        /* New styles for the single-column contact form */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .contact-intro {
@@ -147,10 +149,14 @@
             line-height: 1.8;
             color: var(--text-light);
             padding-top: 1rem;
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 2rem;
         }
 
         .contact-form {
             width: 100%;
+            max-width: 600px; /* Constrain max width for better aesthetics */
         }
 
         .form-group {
@@ -242,18 +248,22 @@
             line-height: 1.6;
         }
 
-        .personal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* Redesigned personal section */
+        .personal-list {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
-            margin-top: 2rem;
+            list-style: none;
         }
 
         .personal-item {
-            text-align: center;
-            padding: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
             background: var(--bg-light);
+            padding: 2rem;
             border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -261,19 +271,45 @@
             transform: translateY(-5px);
         }
 
-        .personal-image {
+        .personal-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+        /* Styles for the slideshow container */
+        .slideshow-container {
+            position: relative;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 250px;
+            overflow: hidden;
             border-radius: 10px;
             margin-bottom: 1rem;
         }
 
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow-image.active {
+            opacity: 1;
+        }
+
+        .personal-content {
+            flex: 1;
+        }
+
         .personal-title {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .personal-text {
@@ -299,13 +335,19 @@
                 gap: 2rem;
             }
 
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .contact-form {
+                max-width: 100%;
             }
 
-            .personal-grid {
-                grid-template-columns: 1fr;
+            .personal-list {
+                gap: 1rem;
+            }
+
+            .personal-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1.5rem;
             }
 
             .section {
@@ -330,8 +372,8 @@
         <div class="container">
             <ul class="nav-list">
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
                 <li><a href="#history" class="nav-link">Professional History</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
                 <li><a href="#personal" class="nav-link">A Little More About Me</a></li>
             </ul>
         </div>
@@ -351,43 +393,8 @@
                     <div>
                         <img src="https://placehold.co/400x300/C026D3/FFFFFF?text=Your+Headshot" 
                              alt="Angeles Romero professional headshot" 
-                             class="about-image"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div style="display:none; width:100%; height:300px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">👋</div>
+                             class="about-image">
                     </div>
-                </div>
-            </section>
-
-            <section id="contact" class="section">
-                <h2 class="section-title">Contact Me</h2>
-                <div class="contact-grid">
-                    <div class="contact-intro">
-                        <p>I'd love to hear from you! Whether you're a potential employer, collaborator, or just want to connect, feel free to reach out via the form below. I'll get back to you as soon as possible!</p>
-                    </div>
-                    
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Name *</label>
-                            <input type="text" id="name" name="name" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="company" class="form-label">Company</label>
-                            <input type="text" id="company" name="company" class="form-input">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email *</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project, opportunity, or just say hello!"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
                 </div>
             </section>
 
@@ -424,42 +431,85 @@
                 </div>
             </section>
 
+            <section id="contact" class="section">
+                <h2 class="section-title">Contact Me</h2>
+                <div class="contact-content">
+                    <div class="contact-intro">
+                        <p>I'd love to hear from you! Whether you're a potential employer, collaborator, or just want to connect, feel free to reach out via the form below. I'll get back to you as soon as possible!</p>
+                    </div>
+                    
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" id="company" name="company" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project, opportunity, or just say hello!"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </section>
+
             <section id="personal" class="section">
                 <h2 class="section-title">A Little More About Me</h2>
                 <div class="section-content">
                     <p style="text-align: center; margin-bottom: 2rem;">Beyond my professional life, I'm passionate about many things that make me who I am. Here's a glimpse into my personal world:</p>
                     
-                    <div class="personal-grid">
-                        <div class="personal-item">
-                            <img src="https://placehold.co/400x200/9C27B0/FFFFFF?text=My+Cats" 
-                                 alt="My beloved cat Luna" 
-                                 class="personal-image"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <div style="display:none; width:100%; height:200px; background: linear-gradient(135deg, #f59e0b, #f97316); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">🐱</div>
-                            <h3 class="personal-title">My Family</h3>
-                            <p class="personal-text">Meet Charlemagne the Cat and Ferguson aka Fergie (She/Her), my two amazing cats who bring endless joy to my life. They're my coding companions and the best stress relievers after a long day of problem-solving.</p>
-                        </div>
+                    <ul class="personal-list">
+                        <li class="personal-item">
+                            <div class="personal-icon">🐱</div>
+                            <div class="personal-content">
+                                <h3 class="personal-title">My Family</h3>
+                                <div class="slideshow-container">
+                                    <!-- Add your family photos here. Just copy and paste the line below for each photo. -->
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/C026D3/FFFFFF?text=Photo+1" alt="My family">
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/DB2777/FFFFFF?text=Photo+2" alt="My family">
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/F9A826/FFFFFF?text=Photo+3" alt="My family">
+                                </div>
+                                <p class="personal-text">Meet Charlemagne the Cat and Ferguson aka Fergie (She/Her), my two amazing cats who bring endless joy to my life. They're my coding companions and the best stress relievers after a long day of problem-solving.</p>
+                            </div>
+                        </li>
                         
-                        <div class="personal-item">
-                            <img src="https://placehold.co/400x200/DB2777/FFFFFF?text=My+Interests" 
-                                 alt="Hiking in nature" 
-                                 class="personal-image"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <div style="display:none; width:100%; height:200px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">🏔️</div>
-                            <h3 class="personal-title">Broadway Shows</h3>
-                            <p class="personal-text">I love theater and showtunes! .</p>
-                        </div>
+                        <li class="personal-item">
+                            <div class="personal-icon">🎭</div>
+                            <div class="personal-content">
+                                <h3 class="personal-title">Broadway Shows</h3>
+                                <div class="slideshow-container">
+                                    <!-- Add your Broadway photos here. Just copy and paste the line below for each photo. -->
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/C026D3/FFFFFF?text=Photo+1" alt="Broadway Show">
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/DB2777/FFFFFF?text=Photo+2" alt="Broadway Show">
+                                </div>
+                                <p class="personal-text">I love theater and showtunes!</p>
+                            </div>
+                        </li>
                         
-                        <div class="personal-item">
-                            <img src="https://placehold.co/400x200/C026D3/FFFFFF?text=Chicago+Sports" 
-                                 alt="Da Bears" 
-                                 class="personal-image"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <div style="display:none; width:100%; height:200px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">🍳</div>
-                            <h3 class="personal-title">Chicago Sports!</h3>
-                            <p class="personal-text">The Cubs. The Blackhawks. Da Bears. I love Chicago and though we haven't won anything in a while, I'm still rooting for my home teams!</p>
-                        </div>
-                    </div>
+                        <li class="personal-item">
+                            <div class="personal-icon">🏈</div>
+                            <div class="personal-content">
+                                <h3 class="personal-title">Chicago Sports!</h3>
+                                <div class="slideshow-container">
+                                    <!-- Add your Chicago sports photos here. Just copy and paste the line below for each photo. -->
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/C026D3/FFFFFF?text=Photo+1" alt="Chicago Sports">
+                                    <img class="slideshow-image" src="https://placehold.co/400x250/DB2777/FFFFFF?text=Photo+2" alt="Chicago Sports">
+                                </div>
+                                <p class="personal-text">The Cubs. The Blackhawks. Da Bears. I love Chicago and though we haven't won anything in a while, I'm still rooting for my home teams!</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </section>
         </div>
@@ -467,7 +517,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Angeles Romero. All rights reserved.</p>
+            <p>&copy; 2025 Angeles Romero. All rights reserved.</p>
         </div>
     </footer>
 
@@ -518,6 +568,35 @@
                 observer.observe(section);
             });
         });
+
+        // Slideshow logic
+        function startSlideshows() {
+            const slideshowContainers = document.querySelectorAll('.slideshow-container');
+            
+            slideshowContainers.forEach(container => {
+                const images = container.querySelectorAll('.slideshow-image');
+                let currentImageIndex = 0;
+                
+                if (images.length > 0) {
+                    // Set the first image to active initially
+                    images[currentImageIndex].classList.add('active');
+                    
+                    setInterval(() => {
+                        // Remove active class from the current image
+                        images[currentImageIndex].classList.remove('active');
+                        
+                        // Move to the next image
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        
+                        // Add active class to the next image
+                        images[currentImageIndex].classList.add('active');
+                    }, 5000); // Change image every 5 seconds
+                }
+            });
+        }
+
+        // Wait for the page to load before starting the slideshows
+        window.onload = startSlideshows;
     </script>
 </body>
 </html>
